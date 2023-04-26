@@ -1,5 +1,9 @@
 # Laravel CRUD
 
+- laravel 10.x.x
+- php 8.2
+- Mysql
+
 ## 1. Install laravel, murni tanpa tambahan library apapun.
 ``` shell
 composer create-project --prefer-dist laravel/laravel laravelcrud
