@@ -19,8 +19,12 @@ class CategoryController extends Controller
             $search = request('search');
             $categories->where('name', 'like', "%$search%");
         }
+        $limit = 10;
+        if (request()->has('limit')){
+            $limit = request('limit');
+        }
 
-        $categories = $categories->paginate(10);
+        $categories = $categories->paginate($limit);
 
         return response()->json($categories);
     }
@@ -33,7 +37,7 @@ class CategoryController extends Controller
         $category = new Category();
         $category->fill($request->validated());
         $category->save();
-        return response()->json(['status'=> 'SUCCESS', 'data' => $category]);
+        return response()->json(['status'=> 'SUCCESS', 'data' => $category], 201);
     }
 
     /**
@@ -70,6 +74,6 @@ class CategoryController extends Controller
         if (!$category) 
             return response()->json(['status'=> 'BAD_REQUEST', 'message' => 'Data tidak ditemukan.'], 400);
         $category->delete();
-        return response()->json(['status'=> 'SUCCESS', 'data' => ['id' => $id]]);
+        return response()->json(['status'=> 'SUCCESS', 'data' => ['id' => $id]], 204);
     }
 }
